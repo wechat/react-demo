@@ -1,12 +1,6 @@
-import { useEffect, useRef, useState } from "react";
-
-interface InputProps {
-  defaultValue: string;
-  className: string;
-  maxLength: number;
-  onChange: (value: string) => void;
-  onClear: () => void;
-}
+import { useContext, useEffect, useRef, useState } from "react";
+import { MsgContext } from "../context/MsgContext";
+import { InputProps } from "../interface";
 
 const Input: React.FC<InputProps> = ({
   defaultValue,
@@ -17,6 +11,11 @@ const Input: React.FC<InputProps> = ({
 }) => {
   const [value, setValue] = useState("");
   const inputRef = useRef(null);
+  const { setMsg } = useContext(MsgContext);
+
+  const sendMessage = () => {
+    setMsg("Hello from Child");
+  };
 
   useEffect(() => {
     if (defaultValue) {
@@ -46,6 +45,7 @@ const Input: React.FC<InputProps> = ({
         onChange={handleChange}
       />
       <button onClick={handleclear}>X</button>
+      <button onClick={sendMessage}>sendMessage</button>
     </div>
   );
 };
